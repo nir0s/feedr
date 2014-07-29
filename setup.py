@@ -45,7 +45,7 @@ setup(
     author_email='nir36g@gmail.com',
     license='LICENSE',
     platforms='All',
-    description='Python logs and events Generator',
+    description='Data Feeder using different transports',
     long_description=read('README.rst'),
     packages=['feeder'],
     entry_points={
