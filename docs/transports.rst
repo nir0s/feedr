@@ -14,7 +14,7 @@ to see a list of all transports run:
 
 .. code-block:: bash
 
- feeder list transports
+ mouth list transports
 
 .. note:: while some transports have a default configuration (like the File transport), some don't (like the UDP transport). see the `transports <http://feeder.readthedocs.org/en/latest/transports.html>`_ section for configuration options for the desired transport.
 

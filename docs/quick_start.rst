@@ -12,7 +12,7 @@ then you can run
 
 .. code-block:: bash
 
- feeder gen
+ mouth feed
 
 and VOILA! (look in your current dir for a "generated.log" file.)
 
@@ -21,10 +21,10 @@ to go beyond feeder gen, run:
 
 .. code-block:: bash
 
- feeder -h
- feeder list transports # to list the default transports available to you
- feeder list formatters # to list the default formatters available to you
- feeder list fake # for a list of fake data fields you can use
+ mouth -h
+ mouth list transports # to list the default transports available to you
+ mouth list formatters # to list the default formatters available to you
+ mouth list fake # for a list of fake data fields you can use
 
 and to configure feeder, see the `configuration <http://feeder.readthedocs.org/en/latest/configuration.html>`_ section.
 

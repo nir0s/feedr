@@ -50,7 +50,7 @@ setup(
     packages=['feeder'],
     entry_points={
         'console_scripts': [
-            'feeder = feeder.cli:main',
+            'mouth = feeder.cli:main',
         ]
     },
     install_requires=[

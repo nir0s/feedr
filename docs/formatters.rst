@@ -13,7 +13,7 @@ To list all formatters run:
 
 .. code-block:: bash
 
- feeder list formatters
+ mouth list formatters
 
 
 Contents:

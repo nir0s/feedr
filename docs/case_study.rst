@@ -55,7 +55,7 @@ Then, all you have to do is run:
 
 .. code-block:: bash
 
- feeder gen -t TestRabbitCluster -f MyMetricsFormatter -c my_config_file.py -g 0.001 -m 100000000
+ mouth feed -t TestRabbitCluster -f MyMetricsFormatter -c my_config_file.py -g 0.001 -m 100000000
 
 The (partial) output, might look like this (if you printed it to a file):
 

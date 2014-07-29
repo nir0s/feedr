@@ -2,12 +2,12 @@
 """Script to run feeder via command line
 
 Usage:
-    feeder gen [--config=<path> --transport=<string> --format=<string> --gap=<int> --messages=<int> --batch=<int> -v]
-    feeder list (fake|transports|formatters)
-    feeder --version
+    mouth feed [--config=<path> --transport=<string> --format=<string> --gap=<int> --messages=<int> --batch=<int> -v]
+    mouth list (fake|transports|formatters)
+    mouth --version
 
 Arguments:
-    gen                 Generates Logs
+    feed                Generates Logs
     list fake           Lists different data options (with an example)
     list transports     Lists the type of transports available
     list formatters     Lists the type of formatters available
@@ -56,7 +56,7 @@ def feeder_run(o):
         elif o['formatters']:
             list_formatters()
 
-    elif o['gen']:
+    elif o['feed']:
         generator(config=o.get('--config'),
                  transport=o.get('--transport'),
                  formatter=o.get('--format'),
