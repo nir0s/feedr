@@ -30,20 +30,20 @@ see [feeder config](http://feeder.readthedocs.org/en/latest/configuration.html) 
 to configure your transports and formatters.
 ```shell
  # this will assume config.py in the cwd and assume default for each option
- feeder gen
+ mouth feed
  # or.. you can specify whatever you want in the cli..
- feeder gen -c /my/config/file/path.py -t AMQP -f Json -g 0.001 -m 100000000
- feeder gen -t UDP -f Custom -g 0.00001 -m 102831028
+ mouth feed -c /my/config/file/path.py -t AMQP -f Json -g 0.001 -m 100000000
+ mouth feed -t UDP -f Custom -g 0.00001 -m 102831028
  # you can also send in batches
- feeder gen -t UDP -f Custom -g 0.01 -m 102831028 -b 1000
+ mouth feed -t UDP -f Custom -g 0.01 -m 102831028 -b 1000
  # and even use some common formatters like apache's..
- feeder gen -t Stream -f ApacheError
+ mouth feed -t Stream -f ApacheError
  # print fake data types that you can use in the config...
- feeder list fake
+ mouth list fake
  # print a list of available transports
- feeder list transports
+ mouth list transports
  # print a list of available formatters
- feeder list formatters
+ mouth list formatters
 ```
 
 ### Additional Information
