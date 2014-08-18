@@ -26,7 +26,6 @@ DEFAULT_VERBOSE_LOGGING_LEVEL = logging.DEBUG
 
 DEFAULT_CONFIG_FILE = 'config.py'
 DEFAULT_GAP = float(0.01)
-DEFAULT_NUMBER_OF_MESSAGES = 10
 
 DEFAULT_TRANSPORT = 'File'
 DEFAULT_FORMATTER = 'Custom'
@@ -177,7 +176,7 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
             instance.send(client, log)
         message_count += batch
         # check if the number of messages sent are less than the desired amount
-        if message_count < messages:
+        if message_count < messages or messages == 0:
             # just to get some feedback during execution
             if not message_count % (1 / gap):
                 lgr.info('{} logs written. NICE!'.format(message_count))
@@ -252,7 +251,10 @@ def generator(config=None, transport=None, formatter=None, gap=None,
     transport = transport if transport else DEFAULT_TRANSPORT
     formatter = formatter if formatter else DEFAULT_FORMATTER
     gap = float(gap) if gap else DEFAULT_GAP
-    messages = int(messages) if messages else DEFAULT_NUMBER_OF_MESSAGES
+    # if no message count specified, assume 0 (infinite)
+    messages = abs(int(messages)) if messages else 0
+    # alias - for clarify's sake
+    m = messages
     batch = int(batch) if batch else 1
     # declare transport and formatter configuration. will assume defaults
     # if config file wasn't imported.
@@ -273,9 +275,9 @@ def generator(config=None, transport=None, formatter=None, gap=None,
     lgr.debug('transport: {}'.format(transport))
     lgr.debug('formatter: {}'.format(formatter))
     lgr.debug('gap: {}'.format(gap))
-    lgr.debug('message count: {}'.format(messages))
+    lgr.debug('message count: {}'.format(m if m > 0 else 'infinite'))
     # well.. you can't have that right? that would be stupid.
-    if batch > int(messages):
+    if m > 0 and batch > m:
         raise FeederError('batch number larger than total amount of messages')
     else:
         lgr.debug('batch: {}'.format(batch))
@@ -284,7 +286,7 @@ def generator(config=None, transport=None, formatter=None, gap=None,
         trans, transport + 'Transport', transport_config)
     # send the stuff
     send(instance, client, formatter + 'Formatter', formatter_config,
-         messages, gap, batch)
+         m, gap, batch)
     # maybe close a connection to the host is required...
     try:
         instance.close()
