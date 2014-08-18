@@ -1,6 +1,3 @@
-from datetime import date
 
-print date
-print date.today().year
-print date.today().month
-print date.today().day
+config = {'data': {'yes': 'no'}}
+config = None

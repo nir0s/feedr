@@ -30,6 +30,7 @@ DEFAULT_AMQP_QUEUE = 'myqueue'
 DEFAULT_AMQP_ROUTING_KEY = 'myroutingkey'
 # broker exchange
 DEFAULT_AMQP_EXCHANGE = ''
+DEFAULT_AMQP_DELIVERY_MODE = 2
 
 # ES DEFAULTS
 DEFAULT_ES_PORT = '9200'
@@ -120,7 +121,13 @@ class AMQPTransport(BaseTransport):
             raise RuntimeError('configuration incomplete: {}'.format(ex))
         self.queue = config.get('queue', DEFAULT_AMQP_QUEUE)
         self.exchange = config.get('exchange', DEFAULT_AMQP_EXCHANGE)
+        self.exchange_type = config.get('exchange_type', 'fanout')
         self.routing_key = config.get('routing_key', DEFAULT_AMQP_ROUTING_KEY)
+        self.delivery_mode = config.get('deliver_mode',
+                                        DEFAULT_AMQP_DELIVERY_MODE)
+        self.auto_delete = config.get('auto_delete', True)
+        self.durable = config.get('durable', True)
+        self.exclusive = config.get('exclusive', False)
 
     def configure(self):
         if not self.host:
@@ -131,15 +138,24 @@ class AMQPTransport(BaseTransport):
         except:
             raise RuntimeError('could not connect to host')
 
+        settings = {
+            'auto_delete': self.auto_delete,
+            'durable': self.durable,
+            'exclusive': self.exclusive
+        }
         client = self.connection.channel()
-        client.queue_declare(queue=self.queue, durable=True)
+        if len(self.exchange) > 0:
+            client.exchange_declare(
+                exchange=self.exchange, type=self.exchange_type)
+        client.queue_declare(queue=self.queue, **settings)
         return client
 
     def send(self, client, log):
         client.basic_publish(exchange=self.exchange,
                              routing_key=self.routing_key,
                              body=log,
-                             properties=pika.BasicProperties(delivery_mode=2))
+                             properties=pika.BasicProperties(
+                                 delivery_mode=self.delivery_mode))
 
     # TODO: (FEAT) support connection closing
     def close(self):

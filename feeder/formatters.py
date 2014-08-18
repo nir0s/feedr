@@ -63,6 +63,11 @@ class BaseFormatter(object):
         return
 
     def f(self, config, name):
+        """retrieves configuration keys
+
+        if config wasn't supplied or a key doesn't exist, returns $RAND
+        which will initiate data faking
+        """
         return config['data'].get(name, '$RAND') if config else '$RAND'
 
 
@@ -108,15 +113,55 @@ class CustomFormatter(BaseFormatter):
         self.data = config.get('data', DEFAULT_CUSTOM_DATA)
 
     def generate_data(self):
+        """this will generate a message according to `self.format`
+        with data from `self.data`.
+
+        all fields in the data dict will be iterated over and matched to
+        the items in the format list. if a match is found and $RAND is set
+        in one of the fields, random data will be generated for that field.
+        If not, data will be chosen from the list.
+        If no match is found, the explicit item in the format list will be
+        appended.
+
+        example:
+
+        .. code-block:: python
+
+         format = ['Mr. ' 'first_name', 'last_name']
+         data = {
+             'first_name': ['Jason, Josh]',
+             'last_name': '$RAND'
+         }
+
+        the output of the above example might be:
+
+        .. code-block:: python
+
+         'Mr. Jason Williams'
+         or
+         'Mr. Josh Brolin'
+         or
+         'Mr. Jason Bananas'
+         ...
+        """
         log = ''
+        # iterate over the format
         for field_name in self.format:
+            # for each field in the data dictionary
             for field, data in self.data.items():
+                # if the field name exists in the format and the data
                 if field_name == field:
+                    # and rand is set
                     if data == '$RAND':
+                        # fake the data
                         log += fake_data(field_name)
                     else:
+                        # else choose randomly from the field
                         log += random.choice(self.data[field_name])
+            # if the field doesn't exist in the data, only in the format
             if field_name not in self.data.keys():
+                # we'll assume that the field name in the format itself
+                # should be appended to the log.
                 log += field_name
         return log
 
@@ -125,7 +170,7 @@ class JsonFormatter(BaseFormatter):
     """generates log strings in json format (or leave as dict)
 
     all fields in the data dict will be iterated over.
-    if $RAND is set in one of the fields, random data will be generate_data
+    if $RAND is set in one of the fields, random data will be generated
     for that field. If not, data will be chosen from the list.
 
     example:
@@ -144,11 +189,11 @@ class JsonFormatter(BaseFormatter):
 
     .. code-block:: python
 
-     {'date_time': '2006-11-05 13:31:09', 'name': 'Miss Nona Breitenberg DVM', 'level': 'ERROR'}  # NOQA
+     {"date_time": "2006-11-05 13:31:09", "name": "Miss Nona Breitenberg DVM", "level": "ERROR"}  # NOQA
      or
-     {'date_time': '1985-01-20 11:41:16', 'name': 'Almeda Lindgren', 'level': 'DEBUG'}  # NOQA
+     {"date_time": "1985-01-20 11:41:16", "name": "Almeda Lindgren", "level": "DEBUG"}  # NOQA
      or
-     {'date_time': '1973-05-21 01:06:04', 'name': 'Jase Heaney', 'level': 'DEBUG'}  # NOQA
+     {"date_time": "1973-05-21 01:06:04", "name": "Jase Heaney", "level": "DEBUG"}  # NOQA
      or
      ...
     """
@@ -170,7 +215,15 @@ class JsonFormatter(BaseFormatter):
 
 
 class ApacheAccessFormatter(CustomFormatter):
-    """returns an apache-access-log like string"""
+    """returns an apache-access-log like string
+
+    you can easily construct new formatters by inheriting the custom formatter.
+
+    all you have to do is specify the format and the data. a helper
+    method `f` is supplied in the `BaseFormatter` Class that will allow you to
+    retrieve basic formatter configuration for your fields.
+
+    """
     # 192.168.72.177 - - [22/Dec/2002:23:32:19 -0400] "GET /search.php HTTP/1.1" 400 1997 www.yahoo.com "-" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; ...)" "-"  # NOQA
     # %{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\] "(?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|%{DATA:rawrequest})" %{NUMBER:response} (?:%{NUMBER:bytes}|-)  # NOQA
     def __init__(self, config):
@@ -198,7 +251,7 @@ class ApacheAccessFormatter(CustomFormatter):
 
 
 class ApacheAccessExFormatter(CustomFormatter):
-    """returns an apache-access-log like string"""
+    """returns an apache-extended-access-log like string"""
     # http://httpd.apache.org/docs/2.2/logs.html
     # 127.0.0.1 - frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326  # NOQA
     # 192.168.2.20 - - [28/Jul/2006:10:27:10 -0300] "GET /cgi-bin/try/ HTTP/1.0" 200 3395  # NOQA
