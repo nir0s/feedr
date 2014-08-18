@@ -1,6 +1,6 @@
 # TODO: (FEAT) support for different statistical distributions
 # TODO: (FEAT) support throughput testing thru http://linux.die.net/man/1/pv
-# TODO: (FEAT) support infinite messages
+# TODO: (TEST) support infinite messages
 
 
 import feeder_config
