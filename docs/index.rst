@@ -12,7 +12,7 @@ It can randomly generate data or get its format and data from a configuration fi
 
 You could use feeder to test your logstash configuration, your elasticsearch cluster performance, load test your RabbitMQ cluster, your InfluxDB handlers.. you get the gist.
 
-feeder even comes with built in Apache Access log and Apache error log formatters for you to check how you're handling apache logs (and you don't even need apache to do that. how cool is that?)
+feeder even comes with built in Apache Access log (regular and extended) and Apache error log formatters for you to check how you're handling apache logs (and you don't even need apache to do that. how cool is that?)
 
 feeder uses a configuration file in which you can configure your `formatters <http://feeder.readthedocs.org/en/latest/formatters.html>`_ and `transports <http://feeder.readthedocs.org/en/latest/transports.html>`_ to your liking.
 

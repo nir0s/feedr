@@ -111,4 +111,4 @@ The (partial) output, might look like this (if you printed it to a file):
 
 Now, you would be able to, for instance, use Vagrant to load a cluster of feeder instances in AWS that would bombard your cluster with metrics.. and then, POOF! Just "vagrant destroy" the machines when you're done.
 
-Of course... I would say that you should periodically run these tests (even randomly) to check that your cluster can withstand surges of metrics.. but.. i'm not your production manager.
+Of course... I would say that you should periodically run these tests (even randomly) to check that your cluster can withstand surges of metrics.. but.. i'm not your production manager. You can daemonize the process and omit  the -m flag so that messages are sent constantly.

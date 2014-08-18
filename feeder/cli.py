@@ -18,7 +18,7 @@ Options:
     -t --transport=<string>     transport to use (e.g. File)
     -f --format=<string>        output format (e.g. Json)
     -g --gap=<int>              Number of seconds between messages (can be less than 1)
-    -m --messages=<int>         Number of messages to generate
+    -m --messages=<int>         Number of messages to generate (if omitted will assume infinity (good for daemonization))
     -b --batch=<int>            Number of messages to stack before shipping
     -v --verbose                a LOT of output
     --version                   Display current version of feeder and exit
