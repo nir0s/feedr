@@ -30,7 +30,7 @@ from docopt import docopt
 from feeder.feeder import init_logger
 from feeder.feeder import _set_global_verbosity_level
 from feeder.feeder import generator
-from feeder.feeder import list_fake_types, list_transports, list_formatters
+from feeder.lists import list_fake_types, list_transports, list_formatters
 
 lgr = init_logger()
 

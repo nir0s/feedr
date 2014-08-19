@@ -1,3 +1,3 @@
+import random
 
-config = {'data': {'yes': 'no'}}
-config = None
+print random.randint(3, 8)

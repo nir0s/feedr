@@ -9,6 +9,8 @@ from format_mappings import InHouseFaker
 import json
 import uuid
 
+from lists import list_fake_types
+
 
 DEFAULT_CUSTOM_FORMAT = [
     'current_date_time', ' ', 'uuid', ' ', 'level', ': ',
@@ -22,6 +24,8 @@ DEFAULT_CUSTOM_DATA = {
     'free_email': '$RAND',
 }
 DEFAULT_JSONIFY = True
+DEFAULT_JSON_FIELD_MIN = 3
+DEFAULT_JSON_FIELD_MAX = 8
 
 
 def fake_data(data_type):
@@ -198,20 +202,33 @@ class JsonFormatter(BaseFormatter):
      ...
     """
     def __init__(self, config):
-        self.data = config.get('data', DEFAULT_CUSTOM_DATA)
+        self.data = config.get('data', None)
         self.jsonify = config.get('jsonify', DEFAULT_JSONIFY)
+        self.min = config.get('field_num_min', DEFAULT_JSON_FIELD_MIN)
+        self.max = config.get('field_num_max', DEFAULT_JSON_FIELD_MAX)
 
     def generate_data(self):
         # TODO: (FEAT) support randomizing data fields in Json formatter
         log = {}
-        for field, data in self.data.items():
-            if data == '$RAND':
-                log[field] = fake_data(field)
-            else:
-                log[field] = random.choice(data)
-        if self.jsonify:
-            return json.dumps(log)
-        return log
+        if self.data is not None:
+            for field, data in self.data.items():
+                if data == '$RAND':
+                    log[field] = fake_data(field)
+                else:
+                    log[field] = random.choice(data)
+        else:
+            for i in xrange(random.randint(self.min, self.max)):
+                list = list_fake_types(False)
+        #         print '******'
+        #         print len(list)
+        #         field = random.choice(list)
+        #         print field
+        #         field = random.choice(list_fake_types(False)).split(' ')[1]
+        #         log[field] = fake_data(field)
+        #         print log[field]
+        # if self.jsonify:
+        #     return json.dumps(log)
+        # return log
 
 
 class ApacheAccessFormatter(CustomFormatter):
