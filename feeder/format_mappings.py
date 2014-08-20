@@ -46,6 +46,9 @@ class InHouseFaker():
     def current_date_time(self):
         return str(self.dt.replace(microsecond=0))
 
+    def current_date(self):
+        return str(self.current_date_time().split(' ')[0])
+
     def current_day_of_month(self):
         return str(self.dt.strftime("%d"))
 

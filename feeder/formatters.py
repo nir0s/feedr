@@ -1,6 +1,5 @@
 # TODO: (FEAT) support additional apache formats (http://ossec-docs.readthedocs.org/en/latest/log_samples/apache/apache.html)  # NOQA
 # TODO: (FEAT) maybe consolidate Json and Custom formatters to the same class, to let other custom formatters use them both for each type implemented  # NOQA
-# TODO: (FEAT) implement Tomcat Formatter
 
 import random
 from abc import abstractmethod, ABCMeta
@@ -305,4 +304,29 @@ class ApacheErrorFormatter(CustomFormatter):
             'current_time': self.f(config, 'current_time'),
             'catch_phrase': self.f(config, 'catch_phrase'),
             'syslog_error_levels_lower': self.f(config, 'syslog_error_levels_lower'),  # NOQA
+        }
+
+
+class IISFormatter(CustomFormatter):
+    """returns an iis log like string"""
+    # 2002-05-24 20:18:01 172.224.24.114 - 206.73.118.24 80 GET /Default.htm - 200 7930 248 31 Mozilla/4.0+(compatible;+MSIE+5.01;+Windows+2000+Server) http://64.224.24.114/  # NOQA
+    def __init__(self, config):
+        self.format = [
+            'current_date_time', ' ', 'ipv4', ' - ', 'ipv4', ' ', 'port', ' ',
+            'http_verbs', ' ', 'uri_path', ' - ', 'http_error_codes', ' ',
+            'sc-bytes', ' ', 'cs-bytes', ' ', 'time-taken', ' ',
+            'user_agent', ' ', 'uri'
+        ]
+        self.data = {
+            'current_date_time': self.f(config, 'current_date_time'),
+            'ipv4': self.f(config, 'ipv4'),
+            'port': ['80', '8080', '100', '443', '8443', '81', '11'],
+            'http_verbs': self.f(config, 'http_verbs'),
+            'uri_path': self.f(config, 'uri_path'),  # NOQA
+            'http_error_codes': self.f(config, 'http_error_codes'),
+            'sc-bytes': [str(random.randint(1000, 50000)) for i in xrange(100)],  # NOQA
+            'cs-bytes': [str(random.randint(1000, 50000)) for i in xrange(100)],  # NOQA
+            'time-taken': [str(random.randint(1000, 50000)) for i in xrange(400)],  # NOQA
+            'user_agent': self.f(config, 'user_agent'),
+            'uri': self.f(config, 'uri'),
         }
