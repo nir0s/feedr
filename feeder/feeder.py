@@ -1,6 +1,6 @@
 # TODO: (FEAT) support for different statistical distributions
 # TODO: (FEAT) support throughput testing thru http://linux.die.net/man/1/pv
-# TODO: (FEAT) support infinite messages
+# TODO: (IMPRV) remove six and dictconfig from coverage report
 
 
 import logging
@@ -163,7 +163,6 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
     return
 
 
-# TODO: (IMPRV) move this to generator function and add _
 def config_transport(transports, transport, transport_config):
     """returns a configured instance and client for the transport
 
@@ -208,9 +207,10 @@ def generator(config=None, transport=None, formatter=None, gap=None,
     gap = float(gap) if gap else DEFAULT_GAP
     messages = int(messages) if messages else DEFAULT_NUMBER_OF_MESSAGES
     batch = int(batch) if batch else 1
+
+    # TODO: (IMPRV) move config to different function.
     # declare transport and formatter configuration. will assume defaults
     # if config file wasn't imported.
-    # TODO: (IMPRV) move config to different function.
     transports_config = config.get('transports', {}) \
         if config else {}
     formatters_config = config.get('formatters', {}) \
@@ -223,11 +223,13 @@ def generator(config=None, transport=None, formatter=None, gap=None,
         if transport_config else transport
     formatter = formatter_config.get('type', formatter) \
         if formatter_config else formatter
+
     # configure transport class instance and logging client
     lgr.debug('transport: {0}'.format(transport))
     lgr.debug('formatter: {0}'.format(formatter))
     lgr.debug('gap: {0}'.format(gap))
     lgr.debug('message count: {0}'.format(messages))
+
     # well.. you can't have that right? that would be stupid.
     if batch > int(messages):
         raise FeederError('batch number larger than total amount of messages')

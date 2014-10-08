@@ -1,1 +1,8 @@
-[33me4ff5de[m[33m ([1;36mHEAD[m[33m, [1;32mmaster[m[33m)[m initial commit
+[33mad47be7[m[33m ([1;36mHEAD[m[33m, [1;31morigin/master[m[33m, [1;32mmaster[m[33m)[m Merge pull request #1 from nir0s/verify-py26-compatibility
+[33mcfe6b71[m[33m ([1;31morigin/verify-py26-compatibility[m[33m)[m py26 ready
+[33mbad71ea[m code optimization and documentation arrangement
+[33m0134957[m changes docs
+[33m913951c[m up'd ver
+[33m473d40d[m changed cli to mouth
+[33m6f719e7[m changed description
+[33me4ff5de[m initial commit

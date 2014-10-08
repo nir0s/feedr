@@ -1,26 +1,29 @@
 - feeder/formatters.py:1:    #  TODO: (FEAT) support additional apache formats (http://ossec-docs.readthedocs.org/en/latest/log_samples/apache/apache.html)  # NOQA
 - feeder/formatters.py:2:    #  TODO: (FEAT) maybe consolidate Json and Custom formatters to the same class, to let other custom formatters use them both for each type implemented  # NOQA
 - feeder/formatters.py:3:    #  TODO: (FEAT) implement Tomcat Formatter
-- feeder/formatters.py:160:    #  TODO: (FEAT) support randomizing data fields in Json formatter
+- feeder/formatters.py:205:    #  TODO: (FEAT) support randomizing data fields in Json formatter
+- feeder/logger.py:60:    #  TODO: (IMPRV) only perform file related actions if file handler is
+- feeder/logger.py:61:    #  TODO: (IMPRV) defined.
 - feeder/transports.py:3:    #  TODO: (FEAT) add graphite - https://github.com/daniellawrence/graphitesend
-- feeder/transports.py:108:    #  TODO: (BUG) fix bug where rotating files will return a bad line
-- feeder/transports.py:109:    #  TODO: (BUG) count if more than one file is generated
-- feeder/transports.py:144:    #  TODO: (FEAT) support connection closing
-- feeder/transports.py:265:    #  TODO: (IMPRV) check out https://github.com/kennedyj/loggly-handler/
+- feeder/transports.py:109:    #  TODO: (BUG) fix bug where rotating files will return a bad line
+- feeder/transports.py:110:    #  TODO: (BUG) count if more than one file is generated
+- feeder/transports.py:160:    #  TODO: (FEAT) support connection closing
+- feeder/transports.py:281:    #  TODO: (IMPRV) check out https://github.com/kennedyj/loggly-handler/
 - feeder/feeder.py:1:    #  TODO: (FEAT) support for different statistical distributions
 - feeder/feeder.py:2:    #  TODO: (FEAT) support throughput testing thru http://linux.die.net/man/1/pv
-- feeder/feeder.py:3:    #  TODO: (FEAT) support infinite messages
-- feeder/feeder.py:53:    #  TODO: (IMPRV) only perform file related actions if file handler is
-- feeder/feeder.py:54:    #  TODO: (IMPRV) defined.
-- feeder/feeder.py:88:    #  TODO: (IMPRV) only raise exceptions in verbose mode
-- feeder/feeder.py:111:    #  TODO: (IMPRV) remove from path after importing
-- feeder/feeder.py:160:    #  TODO: (IMPRV) move formatter instance definition to function inside
-- feeder/feeder.py:161:    #  TODO: (IMPRV) the current function and add _
-- feeder/feeder.py:195:    #  TODO: (FEAT) add the option to send the throughput as well to benchmark
-- feeder/feeder.py:196:    #  TODO: (FEAT) the logging process itself.
-- feeder/feeder.py:202:    #  TODO: (IMPRV) move this to generator function.
-- feeder/feeder.py:208:    #  TODO: (IMPRV) why is this here?
-- feeder/feeder.py:212:    #  TODO: (IMPRV) move this to generator function and add _
-- feeder/feeder.py:259:    #  TODO: (IMPRV) move config to different function.
-- feeder/tests/test_feeder.py:175:    #  TODO: (TEST) test list transports
-- feeder/tests/test_feeder.py:176:    #  TODO: (TEST) test list formatters
+- feeder/feeder.py:3:    #  TODO: (IMPRV) remove six and dictconfig from coverage report
+- feeder/feeder.py:42:    #  TODO: (IMPRV) only raise exceptions in verbose mode
+- feeder/feeder.py:65:    #  TODO: (IMPRV) remove from path after importing
+- feeder/feeder.py:114:    #  TODO: (IMPRV) move formatter instance definition to function inside
+- feeder/feeder.py:115:    #  TODO: (IMPRV) the current function and add _
+- feeder/feeder.py:149:    #  TODO: (FEAT) add the option to send the throughput as well to benchmark
+- feeder/feeder.py:150:    #  TODO: (FEAT) the logging process itself.
+- feeder/feeder.py:156:    #  TODO: (IMPRV) move this to generator function.
+- feeder/feeder.py:162:    #  TODO: (IMPRV) why is this here?
+- feeder/feeder.py:211:    #  TODO: (IMPRV) move config to different function.
+- feeder/tests/test_feeder.py:158:    #  TODO: (TEST) test list transports
+- feeder/tests/test_feeder.py:159:    #  TODO: (TEST) test list formatters
+- feeder/tests/test_feeder.py:160:    #  TODO: (TEST) test missing formatter
+- feeder/tests/test_feeder.py:161:    #  TODO: (TEST) infinite messages config
+- feeder/tests/test_feeder.py:162:    #  TODO: (TEST) test output of all formatters
+- feeder/tests/test_feeder.py:163:    #  TODO: (TEST) test apache extended formatter

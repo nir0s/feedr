@@ -157,3 +157,7 @@ class TestSystem(testtools.TestCase):
 
 # TODO: (TEST) test list transports
 # TODO: (TEST) test list formatters
+# TODO: (TEST) test missing formatter
+# TODO: (TEST) infinite messages config
+# TODO: (TEST) test output of all formatters
+# TODO: (TEST) test apache extended formatter
