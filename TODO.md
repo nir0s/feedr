@@ -21,9 +21,9 @@
 - feeder/feeder.py:156:    #  TODO: (IMPRV) move this to generator function.
 - feeder/feeder.py:162:    #  TODO: (IMPRV) why is this here?
 - feeder/feeder.py:211:    #  TODO: (IMPRV) move config to different function.
-- feeder/tests/test_feeder.py:158:    #  TODO: (TEST) test list transports
-- feeder/tests/test_feeder.py:159:    #  TODO: (TEST) test list formatters
-- feeder/tests/test_feeder.py:160:    #  TODO: (TEST) test missing formatter
-- feeder/tests/test_feeder.py:161:    #  TODO: (TEST) infinite messages config
-- feeder/tests/test_feeder.py:162:    #  TODO: (TEST) test output of all formatters
-- feeder/tests/test_feeder.py:163:    #  TODO: (TEST) test apache extended formatter
+- feeder/tests/test_feeder.py:162:    #  TODO: (TEST) test list transports
+- feeder/tests/test_feeder.py:163:    #  TODO: (TEST) test list formatters
+- feeder/tests/test_feeder.py:164:    #  TODO: (TEST) test missing formatter
+- feeder/tests/test_feeder.py:165:    #  TODO: (TEST) infinite messages config
+- feeder/tests/test_feeder.py:166:    #  TODO: (TEST) test output of all formatters
+- feeder/tests/test_feeder.py:167:    #  TODO: (TEST) test apache extended formatter

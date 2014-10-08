@@ -122,37 +122,41 @@ class TestSystem(testtools.TestCase):
         self.assertIn('batch number', str(ex))
 
     def test_generator_defaults(self):
-        fd.generator(verbose=True)
+        fd.generator(verbose=True, messages=1)
 
     def test_generator_formatter_json(self):
-        fd.generator(formatter='Json')
+        fd.generator(formatter='Json', messages=1)
 
     def test_generator_formatter_apacheaccess(self):
-        fd.generator(formatter='ApacheAccess')
+        fd.generator(formatter='ApacheAccess', messages=1)
 
     def test_generator_formatter_apacheerror(self):
-        fd.generator(formatter='ApacheError')
+        fd.generator(formatter='ApacheError', messages=1)
 
     def test_generator_transport_udp(self):
-        fd.generator(transport='MyUDPTransport', config=MOCK_CONFIG_FILE)
+        fd.generator(transport='MyUDPTransport', config=MOCK_CONFIG_FILE,
+                     messages=1)
 
     def test_generator_stream(self):
-        fd.generator(transport='Stream')
+        fd.generator(transport='Stream', messages=1)
 
     def test_generator_amqp_connection_fail(self):
         ex = self.assertRaises(RuntimeError, fd.generator,
                                transport='MyAmqpTransport',
-                               config=MOCK_CONFIG_FILE)
+                               config=MOCK_CONFIG_FILE,
+                               messages=1)
         self.assertEquals(str(ex), 'could not connect to host')
 
     def test_generator_amqp_no_host(self):
-        ex = self.assertRaises(RuntimeError, fd.generator, transport='AMQP')
+        ex = self.assertRaises(
+            RuntimeError, fd.generator, transport='AMQP', messages=1)
         self.assertIn('configuration incomplete', str(ex))
 
     def test_generator_bad_rand_data(self):
         ex = self.assertRaises(RuntimeError, fd.generator,
                                formatter='MyBadDataFormatter',
-                               config=MOCK_CONFIG_FILE)
+                               config=MOCK_CONFIG_FILE,
+                               messages=1)
         self.assertIn('cannot randomize data type', str(ex))
 
 # TODO: (TEST) test list transports
