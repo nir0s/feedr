@@ -38,7 +38,7 @@ DEFAULT_ES_URL_PREFIX = ''
 DEFAULT_ES_TIMEOUT = '10'
 
 d = date.today()
-DEFAULT_ES_INDEX = 'logstash-{}.{}.{}'.format(d.year, d.month, d.day)
+DEFAULT_ES_INDEX = 'logstash-{0}.{1}.{2}'.format(d.year, d.month, d.day)
 DEFAULT_ES_DOC_TYPE = 'doc'
 DEFAULT_ES_SLEEP = 3
 
@@ -118,7 +118,7 @@ class AMQPTransport(BaseTransport):
         try:
             self.host = config['host']
         except KeyError as ex:
-            raise RuntimeError('configuration incomplete: {}'.format(ex))
+            raise RuntimeError('configuration incomplete: {0}'.format(ex))
         self.queue = config.get('queue', DEFAULT_AMQP_QUEUE)
         self.exchange = config.get('exchange', DEFAULT_AMQP_EXCHANGE)
         self.exchange_type = config.get('exchange_type', 'fanout')
@@ -169,7 +169,7 @@ class UDPTransport(BaseTransport):
             self.host = config['host']
             self.port = config['port']
         except KeyError as ex:
-            raise RuntimeError('configuration not complete: {}'.format(ex))
+            raise RuntimeError('configuration not complete: {0}'.format(ex))
 
     def configure(self):
         logger = logging.getLogger('feeder')
@@ -216,7 +216,7 @@ class ElasticsearchTransport(BaseTransport):
 
             self.sleep = config.get('sleep', DEFAULT_ES_SLEEP)
         except KeyError as ex:
-            raise RuntimeError('configuration not complete: {}'.format(ex))
+            raise RuntimeError('configuration not complete: {0}'.format(ex))
 
     def configure(self):
         es = Elasticsearch(
@@ -260,7 +260,7 @@ class LogentriesTransport(BaseTransport):
         try:
             self.token = config['token']
         except KeyError as ex:
-            raise RuntimeError('configuration not complete: {}'.format(ex))
+            raise RuntimeError('configuration not complete: {0}'.format(ex))
 
     def configure(self):
         logger = logging.getLogger('logentries')
@@ -284,7 +284,7 @@ class LogglyTransport(BaseTransport):
             self.domain = config.get('url', DEFAULT_LOGGLY_DOMAIN)
             self.token = config['token']
         except KeyError as ex:
-            raise RuntimeError('configuration not complete: {}'.format(ex))
+            raise RuntimeError('configuration not complete: {0}'.format(ex))
 
     def configure(self):
         logger = "http://{0}/inputs/{1}/tag/python/".format(
@@ -310,7 +310,7 @@ class MongoDBTransport(BaseTransport):
                 'collection', DEFAULT_MONGO_COLLECTION)
             self.sleep = config.get('sleep', DEFAULT_MONGO_SLEEP)
         except KeyError as ex:
-            raise RuntimeError('configuration not complete: {}'.format(ex))
+            raise RuntimeError('configuration not complete: {0}'.format(ex))
 
     def configure(self):
         mongo = pymongo.MongoClient(self.host, self.port)
