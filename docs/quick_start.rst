@@ -12,7 +12,7 @@ then you can run
 
 .. code-block:: bash
 
- mouth feed
+ mouth feed -m 100
 
 and VOILA! (look in your current dir for a "generated.log" file.)
 

@@ -152,7 +152,7 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
              'throughput: {2} logs/sec. now you can go for coffee.)'.format(
                  elapsed_time, seconds, throughput))
     try:
-        # create a pretty table to write the statistical data to
+        # create a pretty table to print the statistical data
         # TODO: (IMPRV) move this to generator function.
         data = instance.get_data()
         lgr.info('statistical data:\n {0}'.format(data))
@@ -227,10 +227,10 @@ def generator(config=None, transport=None, formatter=None, gap=None,
     formatter = formatter_config.get('type', formatter) \
         if formatter_config else formatter
     # configure transport class instance and logging client
-    lgr.debug('transport: {}'.format(transport))
-    lgr.debug('formatter: {}'.format(formatter))
-    lgr.debug('gap: {}'.format(gap))
-    lgr.debug('message count: {}'.format(m if m > 0 else 'infinite'))
+    lgr.debug('transport: {0}'.format(transport))
+    lgr.debug('formatter: {0}'.format(formatter))
+    lgr.debug('gap: {0}'.format(gap))
+    lgr.debug('message count: {0}'.format(m if m > 0 else 'infinite'))
     # well.. you can't have that right? that would be stupid.
     if m > 0 and batch > m:
         raise FeederError('batch number larger than total amount of messages')
