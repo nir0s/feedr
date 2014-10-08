@@ -5,11 +5,8 @@ env:
     - TOX_ENV=docs
     - TOX_ENV=flake8
     - TOX_ENV=py27
-# TODO: add coveralls support
+    - TOX_ENV=py26
 install:
     - pip install tox
-    # - pip install coveralls
 script:
     - tox -e $TOX_ENV
-# after_success:
-#     coveralls

@@ -27,12 +27,12 @@ Options:
 
 from __future__ import absolute_import
 from docopt import docopt
-from feeder.feeder import init_logger
+import feeder.logger as logger
 from feeder.feeder import _set_global_verbosity_level
 from feeder.feeder import generator
 from feeder.feeder import list_fake_types, list_transports, list_formatters
 
-lgr = init_logger()
+lgr = logger.init()
 
 
 def ver_check():
