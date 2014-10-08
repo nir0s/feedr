@@ -1,6 +1,6 @@
 # TODO: (FEAT) support for different statistical distributions
 # TODO: (FEAT) support throughput testing thru http://linux.die.net/man/1/pv
-# TODO: (FEAT) support infinite messages
+# TODO: (TEST) support infinite messages
 
 
 import logging
@@ -25,7 +25,6 @@ DEFAULT_VERBOSE_LOGGING_LEVEL = logging.DEBUG
 
 DEFAULT_CONFIG_FILE = 'config.py'
 DEFAULT_GAP = float(0.01)
-DEFAULT_NUMBER_OF_MESSAGES = 10
 
 DEFAULT_TRANSPORT = 'File'
 DEFAULT_FORMATTER = 'Custom'
@@ -128,17 +127,18 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
         logs = [formatter_instance.generate_data() for i in xrange(batch)]
         # and send the log through the relevant transport
         for log in logs:
+            # TODO: (FEAT) mthread batch messaging
             instance.send(client, log)
         message_count += batch
         # check if the number of messages sent are less than the desired amount
-        if message_count < messages:
-            # just to get some feedback during execution
-            if not message_count % (1 / gap):
-                lgr.info('{0} logs written. NICE!'.format(message_count))
+        if message_count < messages or messages == 0:
             # and sleep the desired amount of time.. zzz zz zZZ zZZzzzz
             sleep(gap)
         else:
             break
+        # just to get some feedback during execution
+        if not message_count % (1 / gap):
+            lgr.info('{0} logs written. NICE!'.format(message_count))
     # then get the current time once more
     end_time = get_current_time()
     lgr.debug('end time is: {0}'.format(end_time))
@@ -152,7 +152,7 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
              'throughput: {2} logs/sec. now you can go for coffee.)'.format(
                  elapsed_time, seconds, throughput))
     try:
-        # create a pretty table to write the statistical data to
+        # create a pretty table to print the statistical data
         # TODO: (IMPRV) move this to generator function.
         data = instance.get_data()
         lgr.info('statistical data:\n {0}'.format(data))
@@ -206,7 +206,10 @@ def generator(config=None, transport=None, formatter=None, gap=None,
     transport = transport if transport else DEFAULT_TRANSPORT
     formatter = formatter if formatter else DEFAULT_FORMATTER
     gap = float(gap) if gap else DEFAULT_GAP
-    messages = int(messages) if messages else DEFAULT_NUMBER_OF_MESSAGES
+    # if no message count specified, assume 0 (infinite)
+    messages = abs(int(messages)) if messages else 0
+    # alias - for clarification sake
+    m = messages
     batch = int(batch) if batch else 1
     # declare transport and formatter configuration. will assume defaults
     # if config file wasn't imported.
@@ -227,9 +230,9 @@ def generator(config=None, transport=None, formatter=None, gap=None,
     lgr.debug('transport: {0}'.format(transport))
     lgr.debug('formatter: {0}'.format(formatter))
     lgr.debug('gap: {0}'.format(gap))
-    lgr.debug('message count: {0}'.format(messages))
+    lgr.debug('message count: {0}'.format(m if m > 0 else 'infinite'))
     # well.. you can't have that right? that would be stupid.
-    if batch > int(messages):
+    if m > 0 and batch > m:
         raise FeederError('batch number larger than total amount of messages')
     else:
         lgr.debug('batch: {0}'.format(batch))
@@ -238,7 +241,7 @@ def generator(config=None, transport=None, formatter=None, gap=None,
         trans, transport + 'Transport', transport_config)
     # send the stuff
     send(instance, client, formatter + 'Formatter', formatter_config,
-         messages, gap, batch)
+         m, gap, batch)
     # maybe close a connection to the host is required...
     try:
         instance.close()
