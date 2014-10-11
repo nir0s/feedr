@@ -52,7 +52,7 @@ to configure your transports and formatters.
 - [formatters](http://feeder.readthedocs.org/en/latest/formatters.html)
 - [transports](http://feeder.readthedocs.org/en/latest/transports.html)
 - [API](http://feeder.readthedocs.org/en/latest/api.html)
-- [InHouseFaker](http://feeder.readthedocs.org/en/latest/inhousefaker.html)
+- [InHouseFaker](http://feeder.readthedocs.org/en/latest/in_house_faker.html)
 
 ### Vagrant
 A vagrantfile is provided: It will load a machine and install feeder on it in a virtualenv so that you can experiment with it.
