@@ -31,7 +31,7 @@ Installation
 
      pip install feeder
      # or, for dev:
-     pip install https://github.com/nir0s/feeder/archive/develop.tar.gz
+     pip install https://github.com/nir0s/feeder/archive/master.tar.gz
 
 Usage Examples
 ~~~~~~~~~~~~~~
@@ -69,18 +69,17 @@ Additional Information
 -  `formatters <http://feeder.readthedocs.org/en/latest/formatters.html>`__
 -  `transports <http://feeder.readthedocs.org/en/latest/transports.html>`__
 -  `API <http://feeder.readthedocs.org/en/latest/api.html>`__
--  `InHouseFaker <http://feeder.readthedocs.org/en/latest/inhousefaker.html>`__
+-  `InHouseFaker <http://feeder.readthedocs.org/en/latest/in_house_faker.html>`__
 
 Vagrant
 ~~~~~~~
 
 A vagrantfile is provided: It will load a machine and install feeder on
-it in a virtualenv so that you can experiment with it. In the future,
-another machine will be provided with rabbitmq, logstash, elasticsearch
-and kibana so that you can experiment with different types of formats
-and transports.
+it in a virtualenv so that you can experiment with it. For a machine
+containing feeder, ELK and RabbitMQ see the `elk-workshop
+repo <https://github.com/nir0s/elk-workshop>`__.
 
-.. |Build Status| image:: https://travis-ci.org/nir0s/feeder.svg?branch=develop
+.. |Build Status| image:: https://travis-ci.org/nir0s/feeder.svg?branch=master
    :target: https://travis-ci.org/nir0s/feeder
 .. |Gitter chat| image:: https://badges.gitter.im/nir0s/feeder.png
    :target: https://gitter.im/nir0s/feeder

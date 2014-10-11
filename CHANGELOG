@@ -1,6 +1,16 @@
-[33mf0a2f8e[m[33m ([1;36mHEAD[m[33m, [1;32mmaster[m[33m)[m up'd version
+[33m16a0c20[m[33m ([1;36mHEAD[m[33m, [1;31morigin/master[m[33m, [1;32mmaster[m[33m)[m fixed broken readme link
+[33m1b3ba2a[m some info
+[33m8a3661e[m updated files
+[33mf0a2f8e[m up'd version
+[33m3d57805[m Merge pull request #2 from nir0s/support-infinite-messages
+[33me7acf65[m removed test.py
+[33m1da8463[m minor fixes
+[33m0bf14ef[m working
 [33mad47be7[m Merge pull request #1 from nir0s/verify-py26-compatibility
 [33mcfe6b71[m[33m ([1;31morigin/verify-py26-compatibility[m[33m)[m py26 ready
+[33m3fb7162[m err, need to test
+[33m3c0f345[m documented
+[33m77e826f[m think it is ready.. now document
 [33mbad71ea[m code optimization and documentation arrangement
 [33m0134957[m changes docs
 [33m913951c[m up'd ver
