@@ -1,7 +1,7 @@
 feeder
 =======
 
-[![Build Status](https://travis-ci.org/nir0s/feeder.svg?branch=develop)](https://travis-ci.org/nir0s/feeder)
+[![Build Status](https://travis-ci.org/nir0s/feeder.svg?branch=master)](https://travis-ci.org/nir0s/feeder)
 
 [![Gitter chat](https://badges.gitter.im/nir0s/feeder.png)](https://gitter.im/nir0s/feeder)
 
@@ -22,7 +22,7 @@ It can also generate fake data using fake-factory.
 ```shell
  pip install feeder
  # or, for dev:
- pip install https://github.com/nir0s/feeder/archive/develop.tar.gz
+ pip install https://github.com/nir0s/feeder/archive/master.tar.gz
 ```
 
 ### Usage Examples
@@ -56,4 +56,4 @@ to configure your transports and formatters.
 
 ### Vagrant
 A vagrantfile is provided: It will load a machine and install feeder on it in a virtualenv so that you can experiment with it.
-In the future, another machine will be provided with rabbitmq, logstash, elasticsearch and kibana so that you can experiment with different types of formats and transports.
+For a machine containing feeder, ELK and RabbitMQ see the [elk-workshop repo](https://github.com/nir0s/elk-workshop).
