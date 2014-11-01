@@ -62,6 +62,7 @@ setup(
         "elasticsearch==1.1.1",
         "LogentriesLogger==0.2.1",
         "pymongo==2.7.1",
+        "influxdb==0.1.12",
     ],
     tests_require=['nose', 'tox'],
     cmdclass={'test': Tox},

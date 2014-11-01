@@ -13,6 +13,7 @@ from time import sleep
 from logentries import LogentriesHandler
 import pymongo
 from elasticsearch import Elasticsearch
+from influxdb import client as influxdb
 import urllib2
 
 # import pretty table for statistical data visualization
@@ -50,6 +51,12 @@ DEFAULT_MONGO_PORT = 27017
 DEFAULT_MONGO_DB = 'test'
 DEFAULT_MONGO_COLLECTION = 'my_collection'
 DEFAULT_MONGO_SLEEP = 1
+
+# INFLUX DEFAULS
+DEFAULT_INFLUX_PORT = 8086
+DEFAULT_INFLUX_DB = 'metrics'
+DEFAULT_INFLUX_USER = 'root'
+DEFAULT_INFLUX_PASSWORD = 'root'
 
 
 class BaseTransport(object):
@@ -334,3 +341,36 @@ class MongoDBTransport(BaseTransport):
         data_table.add_row(["docs after", current_docs])
         data_table.add_row(["docs written", current_docs - self.docs])
         return data_table
+
+
+class InfluxDBTransport(BaseTransport):
+    """an InfluxDB transport implementation"""
+    def __init__(self, config):
+        try:
+            self.host = config['host']
+            self.port = config.get('port', DEFAULT_INFLUX_PORT)
+            self.username = config.get('username', DEFAULT_INFLUX_USER)
+            self.password = config.get('password', DEFAULT_INFLUX_PASSWORD)
+            self.database = config.get('database', DEFAULT_INFLUX_DB)
+        except KeyError as ex:
+            raise RuntimeError('configuration not complete: {0}'.format(
+                ex.message))
+
+    def configure(self):
+        self.db = influxdb.InfluxDBClient(
+            self.host, self.port, self.username, self.password, self.database)
+        try:
+            self.db.create_database(self.database)
+        # TODO: (IMPRV) handle specific exception
+        except:
+            pass
+        return self.db
+
+    def send(self, client, data):
+        client.write_points([data])
+
+    def close(self):
+        pass
+
+    def get_data(self):
+        pass
