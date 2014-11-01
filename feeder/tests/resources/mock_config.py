@@ -31,6 +31,15 @@ GENERATOR = {
             },
             'jsonify': False,
         },
+        'MyInfluxDBFormatter': {
+            'type': 'Json',
+            'data': {
+                'points': [[[1.1,4.3,2.1],[1.2,2.0,2.0]]],
+                'name': ["web_devweb01_load"],
+                'columns': [["min1", "min5", "min15"]]
+            },
+            'jsonify': False,
+        },
         'MyCustomFormatter': {
             'type': 'Custom',
             'format': ['date_time', ' ', 'uuid', ' ', 'level', ': ', 'module', ' - ', 'free_email'],
@@ -101,6 +110,13 @@ GENERATOR = {
         'MyMongoDBTransport': {
             'type': 'MongoDB',
             'host': '10.0.1.2',
+        },
+        'MyInfluxDBTransport': {
+            'type': 'InfluxDB',
+            'host': '10.2.2.7',
+            'user': 'root',
+            'password': 'root',
+            'database': 'metrics'
         }
     },
 }
