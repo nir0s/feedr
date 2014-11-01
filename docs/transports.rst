@@ -31,6 +31,7 @@ Contents:
    transport_logentries
    transport_loggly
    transport_mongodb
+   transport_influxdb
 
 .. automodule:: feeder.transports
    :members:
