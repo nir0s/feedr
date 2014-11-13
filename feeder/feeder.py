@@ -24,7 +24,7 @@ DEFAULT_BASE_LOGGING_LEVEL = logging.INFO
 DEFAULT_VERBOSE_LOGGING_LEVEL = logging.DEBUG
 
 DEFAULT_CONFIG_FILE = 'config.py'
-DEFAULT_GAP = float(0.01)
+DEFAULT_GAP = 0.01
 DEFAULT_NUMBER_OF_MESSAGES = 10
 
 DEFAULT_TRANSPORT = 'File'
@@ -98,10 +98,10 @@ def calculate_throughput(elapsed_time, messages):
 
 
 def send(instance, client, formatter, format_config, messages, gap, batch):
-    """sends logs and prints the time it took to send all logs
+    """sends data and prints the time it took to send it
 
     :param instance: transport class instance
-    :param client: client to use to send logs
+    :param client: client to use to send send
     :param string format: formatter to use
     :param dict format_config: formatter configuration to use
     :param int messages: number of messages to send
@@ -122,19 +122,19 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
     # and get the current time
     start_time = get_current_time()
     lgr.debug('start time is: {0}'.format(start_time))
-    lgr.info('sending logs... EN GARDE!')
+    lgr.info('transporting data... EN GARDE!')
     while True:
-        # generate the log data from the formatter
-        logs = [formatter_instance.generate_data() for i in xrange(batch)]
-        # and send the log through the relevant transport
-        for log in logs:
-            instance.send(client, log)
+        # generate the data from the formatter
+        data = [formatter_instance.generate_data() for i in xrange(batch)]
+        # and send the data through the relevant transport
+        instance.send(client, data)
         message_count += batch
         # check if the number of messages sent are less than the desired amount
         if message_count < messages:
             # just to get some feedback during execution
             if not message_count % (1 / gap):
-                lgr.info('{0} logs written. NICE!'.format(message_count))
+                lgr.info('{0} data pieces written. NICE!'.format(
+                    message_count))
             # and sleep the desired amount of time.. zzz zz zZZ zZZzzzz
             sleep(gap)
         else:
@@ -147,9 +147,9 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
     # meH!
     throughput, seconds = calculate_throughput(elapsed_time, messages)
     # TODO: (FEAT) add the option to send the throughput as well to benchmark
-    # TODO: (FEAT) the logging process itself.
+    # TODO: (FEAT) the transport process itself.
     lgr.info('DONE! (after {0}h ({1} seconds) with '
-             'throughput: {2} logs/sec. now you can go for coffee.)'.format(
+             'throughput: {2} pieces/sec. now you can go for coffee.)'.format(
                  elapsed_time, seconds, throughput))
     try:
         # create a pretty table to write the statistical data to
@@ -177,17 +177,18 @@ def config_transport(transports, transport, transport_config):
     else:
         lgr.error('could not find transport: {0}. please make sure the '
                   'transport you\'re calling exists.'.format(transport))
-        raise FeederError('missing transport')
-    # get logging client
+        raise FeederError('missing transport: {0}'.format(transport))
+    # get transport client
     client = transport_instance.configure()
     return transport_instance, client
 
 
-def generator(config=None, transport=None, formatter=None, gap=None,
-              messages=None, batch=False, verbose=False):
-    """generates log messages
+def generator(config=None, transport=DEFAULT_TRANSPORT,
+              formatter=DEFAULT_FORMATTER, gap=DEFAULT_GAP,
+              messages=DEFAULT_NUMBER_OF_MESSAGES, batch=1, verbose=False):
+    """generates data
 
-    this will generate log message in the requested format and protocol.
+    this will generate data in the requested format and protocol.
 
     :param string config: path to config file path
     :param string transport: transport type to use
@@ -197,34 +198,31 @@ def generator(config=None, transport=None, formatter=None, gap=None,
     :param int batch: number of messages to stack before sending
     :param bool verbose: sets verbose state for internal logging.
     """
+    def return_real(gap, messages, batch):
+        return float(gap), int(messages), int(batch)
     # set verbosity level for internal logging
     _set_global_verbosity_level(verbose)
     # set params for basic Feeder configuration
     # import config file
     config = _import_config(config) if config else {}
-    transport = transport if transport else DEFAULT_TRANSPORT
-    formatter = formatter if formatter else DEFAULT_FORMATTER
-    gap = float(gap) if gap else DEFAULT_GAP
-    messages = int(messages) if messages else DEFAULT_NUMBER_OF_MESSAGES
-    batch = int(batch) if batch else 1
+    gap, messages, batch = return_real(gap, messages, batch)
 
     # TODO: (IMPRV) move config to different function.
     # declare transport and formatter configuration. will assume defaults
     # if config file wasn't imported.
-    transports_config = config.get('transports', {}) \
+    all_transports = config.get('transports', {}) \
         if config else {}
-    formatters_config = config.get('formatters', {}) \
+    all_formatters = config.get('formatters', {}) \
         if config else {}
-    transport_config = transports_config.get(transport, {}) \
-        if transports_config.get(transport) else {}
-    formatter_config = formatters_config.get(formatter, {}) \
-        if formatters_config.get(formatter) else {}
+    transport_config = all_transports.get(transport, {}) \
+        if all_transports.get(transport) else {}
+    formatter_config = all_formatters.get(formatter, {}) \
+        if all_formatters.get(formatter) else {}
     transport = transport_config.get('type', transport) \
         if transport_config else transport
     formatter = formatter_config.get('type', formatter) \
         if formatter_config else formatter
 
-    # configure transport class instance and logging client
     lgr.debug('transport: {0}'.format(transport))
     lgr.debug('formatter: {0}'.format(formatter))
     lgr.debug('gap: {0}'.format(gap))

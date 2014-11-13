@@ -94,8 +94,9 @@ class FileTransport(BaseTransport):
         logger.setLevel(logging.DEBUG)
         return logger
 
-    def send(self, client, log):
-        client.info(log)
+    def send(self, client, data):
+        for piece in data:
+            client.info(piece)
 
     def close(self):
         pass
@@ -157,12 +158,13 @@ class AMQPTransport(BaseTransport):
         client.queue_declare(queue=self.queue, **settings)
         return client
 
-    def send(self, client, log):
-        client.basic_publish(exchange=self.exchange,
-                             routing_key=self.routing_key,
-                             body=log,
-                             properties=pika.BasicProperties(
-                                 delivery_mode=self.delivery_mode))
+    def send(self, client, data):
+        for piece in data:
+            client.basic_publish(exchange=self.exchange,
+                                 routing_key=self.routing_key,
+                                 body=piece,
+                                 properties=pika.BasicProperties(
+                                     delivery_mode=self.delivery_mode))
 
     # TODO: (FEAT) support connection closing
     def close(self):
@@ -185,9 +187,9 @@ class UDPTransport(BaseTransport):
         logger.setLevel(logging.DEBUG)
         return logger
 
-    def send(self, client, log):
-        # getattr(logger, level)(message)
-        client.debug(log)
+    def send(self, client, data):
+        for piece in data:
+            client.debug(piece)
 
     def close(self):
         pass
@@ -205,8 +207,9 @@ class StreamTransport(BaseTransport):
         logger.setLevel(logging.DEBUG)
         return logger
 
-    def send(self, client, log):
-        client.debug(log)
+    def send(self, client, data):
+        for piece in data:
+            client.debug(piece)
 
 
 class ElasticsearchTransport(BaseTransport):
@@ -238,12 +241,13 @@ class ElasticsearchTransport(BaseTransport):
             index=self.index)['_all']['total']['docs']['count']
         return es
 
-    def send(self, client, log):
-        client.index(
-            index=self.index,
-            doc_type=self.doc_type,
-            body=log
-        )
+    def send(self, client, data):
+        for piece in data:
+            client.index(
+                index=self.index,
+                doc_type=self.doc_type,
+                body=piece
+            )
 
     def close(self):
         pass
@@ -276,8 +280,9 @@ class LogentriesTransport(BaseTransport):
         logger.setLevel(logging.DEBUG)
         return logger
 
-    def send(self, client, log):
-        client.debug(log)
+    def send(self, client, data):
+        for piece in data:
+            client.debug(piece)
 
     def close(self):
         pass
@@ -298,9 +303,10 @@ class LogglyTransport(BaseTransport):
             self.domain, self.token)
         return logger
 
-    def send(self, client, log):
-        log = "PLAINTEXT=" + urllib2.quote(log)
-        urllib2.urlopen(client, log)
+    def send(self, client, data):
+        for piece in data:
+            piece = "PLAINTEXT=" + urllib2.quote(piece)
+        urllib2.urlopen(client, piece)
 
     def close(self):
         pass
@@ -325,8 +331,9 @@ class MongoDBTransport(BaseTransport):
         self.docs = self.collection_client.count()
         return self.collection_client
 
-    def send(self, client, log):
-        client.save(log)
+    def send(self, client, data):
+        for piece in data:
+            client.save(piece)
 
     def close(self):
         pass
@@ -367,7 +374,8 @@ class InfluxDBTransport(BaseTransport):
         return self.db
 
     def send(self, client, data):
-        client.write_points([data])
+        for piece in data:
+            client.write_points([piece])
 
     def close(self):
         pass

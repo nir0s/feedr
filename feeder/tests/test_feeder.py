@@ -19,7 +19,6 @@ from feeder.feeder import FeederError
 import feeder.logger as logger
 import feeder.feeder as fd
 
-
 import testtools
 import os
 import sys
@@ -51,7 +50,7 @@ class TestBase(testtools.TestCase):
 
     def test_import_bad_config_file(self):
         ex = self.assertRaises(FeederError, fd._import_config, BAD_CONFIG_FILE)
-        self.assertEquals(str(ex), 'bad config file')
+        self.assertEquals('bad config file', ex.message)
 
     def test_get_current_time(self):
         time = str(fd.get_current_time())
@@ -84,11 +83,11 @@ class TestBase(testtools.TestCase):
         ex = self.assertRaises(
             FeederError, fd.config_transport, transports,
             'MissingTransport', {})
-        self.assertEquals(str(ex), 'missing transport')
+        self.assertIn('missing transport', ex.message)
         transports = ''
         ex = self.assertRaises(
             FeederError, fd.config_transport, transports, 'MockTransport', {})
-        self.assertEquals(str(ex), 'missing transport')
+        self.assertEquals('missing transport', ex.message)
 
     @log_capture()
     def test_set_global_verbosity_level(self, capture):
@@ -119,7 +118,7 @@ class TestBase(testtools.TestCase):
 class TestSystem(testtools.TestCase):
     def test_generator_batch_larger_than_messages(self):
         ex = self.assertRaises(FeederError, fd.generator, messages=1, batch=10)
-        self.assertIn('batch number', str(ex))
+        self.assertIn('batch number', ex.message)
 
     def test_generator_defaults(self):
         fd.generator(verbose=True, messages=1)
@@ -145,19 +144,19 @@ class TestSystem(testtools.TestCase):
                                transport='MyAmqpTransport',
                                config=MOCK_CONFIG_FILE,
                                messages=1)
-        self.assertEquals(str(ex), 'could not connect to host')
+        self.assertEquals('could not connect to host', ex.message)
 
     def test_generator_amqp_no_host(self):
         ex = self.assertRaises(
             RuntimeError, fd.generator, transport='AMQP', messages=1)
-        self.assertIn('configuration incomplete', str(ex))
+        self.assertIn('configuration incomplete', ex.message)
 
     def test_generator_bad_rand_data(self):
         ex = self.assertRaises(RuntimeError, fd.generator,
                                formatter='MyBadDataFormatter',
                                config=MOCK_CONFIG_FILE,
                                messages=1)
-        self.assertIn('cannot randomize data type', str(ex))
+        self.assertIn('cannot randomize data type', ex.message)
 
 # TODO: (TEST) test list transports
 # TODO: (TEST) test list formatters
