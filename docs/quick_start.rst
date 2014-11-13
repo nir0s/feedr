@@ -17,7 +17,7 @@ then you can run
 and VOILA! (look in your current dir for a "generated.log" file.)
 
 
-to go beyond feeder gen, run:
+to go beyond `mouth feed`, run:
 
 .. code-block:: bash
 
