@@ -1,7 +1,16 @@
-[33m16a0c20[m[33m ([1;36mHEAD[m[33m, [1;31morigin/master[m[33m, [1;32mmaster[m[33m)[m fixed broken readme link
+[33m6d04f4c[m[33m ([1;36mHEAD[m[33m, [1;32mmaster[m[33m)[m merged supports infinite messages, lots of optimizations. initial support for real batch processing
+[33m937c6f0[m[33m ([1;31morigin/master[m[33m, [1;32msupport-real-batch-processing[m[33m)[m Merge branch 'master' of github.com:nir0s/feeder
+[33mba6d1a8[m added forgotten influx transport to doc index
+[33me0b61ba[m Merge pull request #4 from nir0s/add-influx-transport
+[33m9340388[m[33m ([1;31morigin/add-influx-transport[m[33m)[m up'd ver
+[33m42420f0[m added documentation
+[33m770b51e[m added influx transport.. not finished tho..
+[33m0f95140[m up'd ver to 0.4.1
+[33m16a0c20[m fixed broken readme link
 [33m1b3ba2a[m some info
 [33m8a3661e[m updated files
 [33mf0a2f8e[m up'd version
+[33m1f55d81[m[33m ([1;31morigin/support-infinite-messages[m[33m, [1;32msupport-infinite-messages[m[33m)[m up'd ver
 [33m3d57805[m Merge pull request #2 from nir0s/support-infinite-messages
 [33me7acf65[m removed test.py
 [33m1da8463[m minor fixes

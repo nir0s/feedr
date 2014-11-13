@@ -87,7 +87,7 @@ class TestBase(testtools.TestCase):
         transports = ''
         ex = self.assertRaises(
             FeederError, fd.config_transport, transports, 'MockTransport', {})
-        self.assertEquals('missing transport', ex.message)
+        self.assertIn('missing transport', ex.message)
 
     @log_capture()
     def test_set_global_verbosity_level(self, capture):

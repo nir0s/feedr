@@ -5,25 +5,26 @@
 - feeder/logger.py:60:    #  TODO: (IMPRV) only perform file related actions if file handler is
 - feeder/logger.py:61:    #  TODO: (IMPRV) defined.
 - feeder/transports.py:3:    #  TODO: (FEAT) add graphite - https://github.com/daniellawrence/graphitesend
-- feeder/transports.py:109:    #  TODO: (BUG) fix bug where rotating files will return a bad line
-- feeder/transports.py:110:    #  TODO: (BUG) count if more than one file is generated
-- feeder/transports.py:160:    #  TODO: (FEAT) support connection closing
-- feeder/transports.py:281:    #  TODO: (IMPRV) check out https://github.com/kennedyj/loggly-handler/
+- feeder/transports.py:117:    #  TODO: (BUG) fix bug where rotating files will return a bad line
+- feeder/transports.py:118:    #  TODO: (BUG) count if more than one file is generated
+- feeder/transports.py:169:    #  TODO: (FEAT) support connection closing
+- feeder/transports.py:293:    #  TODO: (IMPRV) check out https://github.com/kennedyj/loggly-handler/
+- feeder/transports.py:371:    #  TODO: (IMPRV) handle specific exception
 - feeder/feeder.py:1:    #  TODO: (FEAT) support for different statistical distributions
 - feeder/feeder.py:2:    #  TODO: (FEAT) support throughput testing thru http://linux.die.net/man/1/pv
 - feeder/feeder.py:3:    #  TODO: (IMPRV) remove six and dictconfig from coverage report
-- feeder/feeder.py:42:    #  TODO: (IMPRV) only raise exceptions in verbose mode
-- feeder/feeder.py:65:    #  TODO: (IMPRV) remove from path after importing
-- feeder/feeder.py:114:    #  TODO: (IMPRV) move formatter instance definition to function inside
-- feeder/feeder.py:115:    #  TODO: (IMPRV) the current function and add _
-- feeder/feeder.py:149:    #  TODO: (FEAT) add the option to send the throughput as well to benchmark
-- feeder/feeder.py:150:    #  TODO: (FEAT) the logging process itself.
-- feeder/feeder.py:156:    #  TODO: (IMPRV) move this to generator function.
-- feeder/feeder.py:162:    #  TODO: (IMPRV) why is this here?
-- feeder/feeder.py:211:    #  TODO: (IMPRV) move config to different function.
-- feeder/tests/test_feeder.py:162:    #  TODO: (TEST) test list transports
-- feeder/tests/test_feeder.py:163:    #  TODO: (TEST) test list formatters
-- feeder/tests/test_feeder.py:164:    #  TODO: (TEST) test missing formatter
-- feeder/tests/test_feeder.py:165:    #  TODO: (TEST) infinite messages config
-- feeder/tests/test_feeder.py:166:    #  TODO: (TEST) test output of all formatters
-- feeder/tests/test_feeder.py:167:    #  TODO: (TEST) test apache extended formatter
+- feeder/feeder.py:41:    #  TODO: (IMPRV) only raise exceptions in verbose mode
+- feeder/feeder.py:64:    #  TODO: (IMPRV) remove from path after importing
+- feeder/feeder.py:113:    #  TODO: (IMPRV) move formatter instance definition to function inside
+- feeder/feeder.py:114:    #  TODO: (IMPRV) the current function and add _
+- feeder/feeder.py:147:    #  TODO: (FEAT) add the option to send the throughput as well to benchmark
+- feeder/feeder.py:148:    #  TODO: (FEAT) the transport process itself.
+- feeder/feeder.py:154:    #  TODO: (IMPRV) move this to generator function.
+- feeder/feeder.py:160:    #  TODO: (IMPRV) why is this here?
+- feeder/feeder.py:214:    #  TODO: (IMPRV) move config to different function.
+- feeder/tests/test_feeder.py:161:    #  TODO: (TEST) test list transports
+- feeder/tests/test_feeder.py:162:    #  TODO: (TEST) test list formatters
+- feeder/tests/test_feeder.py:163:    #  TODO: (TEST) test missing formatter
+- feeder/tests/test_feeder.py:164:    #  TODO: (TEST) infinite messages config
+- feeder/tests/test_feeder.py:165:    #  TODO: (TEST) test output of all formatters
+- feeder/tests/test_feeder.py:166:    #  TODO: (TEST) test apache extended formatter

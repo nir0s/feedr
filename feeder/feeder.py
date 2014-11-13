@@ -25,7 +25,6 @@ DEFAULT_VERBOSE_LOGGING_LEVEL = logging.DEBUG
 
 DEFAULT_CONFIG_FILE = 'config.py'
 DEFAULT_GAP = 0.01
-DEFAULT_NUMBER_OF_MESSAGES = 10
 
 DEFAULT_TRANSPORT = 'File'
 DEFAULT_FORMATTER = 'Custom'
@@ -130,15 +129,14 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
         instance.send(client, data)
         message_count += batch
         # check if the number of messages sent are less than the desired amount
-        if message_count < messages:
-            # just to get some feedback during execution
-            if not message_count % (1 / gap):
-                lgr.info('{0} data pieces written. NICE!'.format(
-                    message_count))
+        if message_count < messages or messages == 0:
             # and sleep the desired amount of time.. zzz zz zZZ zZZzzzz
             sleep(gap)
         else:
             break
+        # just to get some feedback during execution
+        if not message_count % (1 / gap):
+            lgr.info('{0} data pieces written. NICE!'.format(message_count))
     # then get the current time once more
     end_time = get_current_time()
     lgr.debug('end time is: {0}'.format(end_time))
@@ -183,9 +181,9 @@ def config_transport(transports, transport, transport_config):
     return transport_instance, client
 
 
-def generator(config=None, transport=DEFAULT_TRANSPORT,
-              formatter=DEFAULT_FORMATTER, gap=DEFAULT_GAP,
-              messages=DEFAULT_NUMBER_OF_MESSAGES, batch=1, verbose=False):
+def generator(config=None, transport=None,
+              formatter=None, gap=None,
+              messages=0, batch=1, verbose=False):
     """generates data
 
     this will generate data in the requested format and protocol.
@@ -199,13 +197,19 @@ def generator(config=None, transport=DEFAULT_TRANSPORT,
     :param bool verbose: sets verbose state for internal logging.
     """
     def return_real(gap, messages, batch):
-        return float(gap), int(messages), int(batch)
+        return float(gap), abs(int(messages)), int(batch)
     # set verbosity level for internal logging
     _set_global_verbosity_level(verbose)
     # set params for basic Feeder configuration
     # import config file
+    transport = transport if transport else DEFAULT_TRANSPORT
+    formatter = formatter if formatter else DEFAULT_FORMATTER
     config = _import_config(config) if config else {}
-    gap, messages, batch = return_real(gap, messages, batch)
+    gap, msgs, batch = return_real(
+        gap if gap else DEFAULT_GAP,
+        messages if messages else 0,
+        batch if batch else 1
+    )
 
     # TODO: (IMPRV) move config to different function.
     # declare transport and formatter configuration. will assume defaults
@@ -226,10 +230,10 @@ def generator(config=None, transport=DEFAULT_TRANSPORT,
     lgr.debug('transport: {0}'.format(transport))
     lgr.debug('formatter: {0}'.format(formatter))
     lgr.debug('gap: {0}'.format(gap))
-    lgr.debug('message count: {0}'.format(messages))
+    lgr.debug('message count: {0}'.format(msgs if msgs > 0 else 'infinite'))
 
     # well.. you can't have that right? that would be stupid.
-    if batch > int(messages):
+    if msgs > 0 and batch > msgs:
         raise FeederError('batch number larger than total amount of messages')
     else:
         lgr.debug('batch: {0}'.format(batch))
@@ -238,7 +242,7 @@ def generator(config=None, transport=DEFAULT_TRANSPORT,
         trans, transport + 'Transport', transport_config)
     # send the stuff
     send(instance, client, formatter + 'Formatter', formatter_config,
-         messages, gap, batch)
+         msgs, gap, batch)
     # maybe close a connection to the host is required...
     try:
         instance.close()

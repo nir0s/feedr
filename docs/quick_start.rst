@@ -22,6 +22,7 @@ to go beyond feeder gen, run:
 .. code-block:: bash
 
  mouth -h
+ mouth feed # to send send infinite amount of messages
  mouth list transports # to list the default transports available to you
  mouth list formatters # to list the default formatters available to you
  mouth list fake # for a list of fake data fields you can use
