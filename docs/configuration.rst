@@ -2,12 +2,12 @@
 Configuration
 =============
 
-feeder's config is a python file with a single dictionary called GENERATOR.
+feedr's config is a python file with a single dictionary called GENERATOR.
 (It's a python file (rathern than JSON) to allow you to use code when generating the data or configuring the transports.)
 
-In the configuration file, you can configure your `formatters <http://feeder.readthedocs.org/en/latest/formatters.html>`_ and `transports <http://feeder.readthedocs.org/en/latest/transports.html>`_.
+In the configuration file, you can configure your `formatters <http://feedr.readthedocs.org/en/latest/formatters.html>`_ and `transports <http://feedr.readthedocs.org/en/latest/transports.html>`_.
 
-feeder will, by default, look for a config.py file in your current working directory unless the "-c" flag is used which will let you specify a specific path. If no config file is found, default configuration will be used.
+feedr will, by default, look for a config.py file in your current working directory unless the "-c" flag is used which will let you specify a specific path. If no config file is found, default configuration will be used.
 
 .. code-block:: python
 
@@ -62,7 +62,7 @@ For instance, you could randomize a uuid field as shown below.
 
 Additionaly, you can use the special $RAND string to randomize data.
 
-.. note:: The $RAND string can only be used for fields that are supported by feeder. You can run "feeder list fake" to see which fields can be randomized.
+.. note:: The $RAND string can only be used for fields that are supported by feedr. You can run "feedr list fake" to see which fields can be randomized.
 
 .. note:: Remember that the entire data dict is kept in memory, so don't randomize millions of data objects or they will hog your resources.
 
@@ -85,4 +85,4 @@ Additionaly, you can use the special $RAND string to randomize data.
 
 .. tip:: to generate real unix time fields, use the current_date_time field. this can help you immitate real time event generation.
 
-.. tip:: check `this <https://github.com/nir0s/feeder/blob/develop/feeder/tests/resources/mock_config.py>`_ out for a configuration file example.
+.. tip:: check `this <https://github.com/nir0s/feedr/blob/develop/feedr/tests/resources/mock_config.py>`_ out for a configuration file example.

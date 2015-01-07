@@ -37,20 +37,20 @@ class Tox(TestCommand):
         sys.exit(errcode)
 
 setup(
-    name='feeder',
-    version=find_version('feeder', '__init__.py'),
-    url='https://github.com/nir0s/feeder',
-    download_url='https://github.com/nir0s/feeder/tarball/0.1',
+    name='feedr',
+    version=find_version('feedr', '__init__.py'),
+    url='https://github.com/nir0s/feedr',
+    download_url='https://github.com/nir0s/feedr/tarball/0.1',
     author='nir0s',
     author_email='nir36g@gmail.com',
     license='LICENSE',
     platforms='All',
-    description='Data Feeder using different transports',
+    description='Data feedr using different transports',
     long_description=read('README.rst'),
-    packages=['feeder'],
+    packages=['feedr'],
     entry_points={
         'console_scripts': [
-            'mouth = feeder.cli:main',
+            'mouth = feedr.cli:main',
         ]
     },
     install_requires=[

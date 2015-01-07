@@ -15,9 +15,9 @@
 
 __author__ = 'nir0s'
 
-from feeder.feeder import FeederError
-import feeder.logger as logger
-import feeder.feeder as fd
+from feedr.feedr import FeedrError
+import feedr.logger as logger
+import feedr.feedr as fd
 
 import testtools
 import os
@@ -30,7 +30,7 @@ import re
 TEST_DIR = '{0}/test_dir'.format(os.path.expanduser("~"))
 TEST_FILE_NAME = 'test_file'
 TEST_FILE = TEST_DIR + '/' + TEST_FILE_NAME
-TEST_RESOURCES_DIR = 'feeder/tests/resources'
+TEST_RESOURCES_DIR = 'feedr/tests/resources'
 MOCK_CONFIG_FILE = os.path.join(TEST_RESOURCES_DIR, 'mock_config.py')
 MOCK_TRANSPORT_FILE = os.path.join(TEST_RESOURCES_DIR, 'mock_transport.py')
 BAD_CONFIG_FILE = os.path.join(TEST_RESOURCES_DIR, 'bad_config.py')
@@ -45,11 +45,11 @@ class TestBase(testtools.TestCase):
         self.assertIn('formatters', outcome.keys())
 
     def test_fail_import_config_file(self):
-        ex = self.assertRaises(FeederError, fd._import_config, '')
+        ex = self.assertRaises(FeedrError, fd._import_config, '')
         self.assertEquals(str(ex), 'missing config file')
 
     def test_import_bad_config_file(self):
-        ex = self.assertRaises(FeederError, fd._import_config, BAD_CONFIG_FILE)
+        ex = self.assertRaises(FeedrError, fd._import_config, BAD_CONFIG_FILE)
         self.assertEquals('bad config file', ex.message)
 
     def test_get_current_time(self):
@@ -81,12 +81,12 @@ class TestBase(testtools.TestCase):
         transports = __import__(os.path.basename(os.path.splitext(
             MOCK_TRANSPORT_FILE)[0]))
         ex = self.assertRaises(
-            FeederError, fd.config_transport, transports,
+            FeedrError, fd.config_transport, transports,
             'MissingTransport', {})
         self.assertIn('missing transport', ex.message)
         transports = ''
         ex = self.assertRaises(
-            FeederError, fd.config_transport, transports, 'MockTransport', {})
+            FeedrError, fd.config_transport, transports, 'MockTransport', {})
         self.assertIn('missing transport', ex.message)
 
     @log_capture()
@@ -117,7 +117,7 @@ class TestBase(testtools.TestCase):
 
 class TestSystem(testtools.TestCase):
     def test_generator_batch_larger_than_messages(self):
-        ex = self.assertRaises(FeederError, fd.generator, messages=1, batch=10)
+        ex = self.assertRaises(FeedrError, fd.generator, messages=1, batch=10)
         self.assertIn('batch number', ex.message)
 
     def test_generator_defaults(self):
