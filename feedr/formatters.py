@@ -200,6 +200,7 @@ class JsonFormatter(BaseFormatter):
     def __init__(self, config):
         self.data = config.get('data', DEFAULT_CUSTOM_DATA)
         self.jsonify = config.get('jsonify', DEFAULT_JSONIFY)
+        self.stringify = config.get('stringify', False)
 
     def generate_data(self):
         # TODO: (FEAT) support randomizing data fields in Json formatter
@@ -210,7 +211,9 @@ class JsonFormatter(BaseFormatter):
             else:
                 log[field] = random.choice(data)
         if self.jsonify:
-            return json.dumps(log)
+            log = json.dumps(log)
+        if self.stringify:
+            log = str(log)
         return log
 
 
