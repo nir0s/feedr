@@ -27,9 +27,7 @@ DEFAULT_BACKUPS = 20
 
 # AMQP DEFAULTS
 # queue name for packager events
-DEFAULT_AMQP_QUEUE = 'myqueue'
-# routing key..
-DEFAULT_AMQP_ROUTING_KEY = 'myroutingkey'
+DEFAULT_AMQP_QUEUE = ''
 # broker exchange
 DEFAULT_AMQP_EXCHANGE = ''
 DEFAULT_AMQP_DELIVERY_MODE = 2
@@ -131,7 +129,7 @@ class AMQPTransport(BaseTransport):
         self.queue = config.get('queue', DEFAULT_AMQP_QUEUE)
         self.exchange = config.get('exchange', DEFAULT_AMQP_EXCHANGE)
         self.exchange_type = config.get('exchange_type', 'fanout')
-        self.routing_key = config.get('routing_key', DEFAULT_AMQP_ROUTING_KEY)
+        self.routing_key = config.get('routing_key', self.queue)
         self.delivery_mode = config.get('deliver_mode',
                                         DEFAULT_AMQP_DELIVERY_MODE)
         self.auto_delete = config.get('auto_delete', True)
