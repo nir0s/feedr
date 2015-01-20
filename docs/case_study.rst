@@ -2,7 +2,7 @@
 Use Case
 ========
 
-To show off the strength feeder possesses, let's take an example that has nothing to do with logs.
+To show off the strength feedr possesses, let's take an example that has nothing to do with logs.
 
 You're now leading a monitoring project where you need to build your first Graphite cluster.
 
@@ -12,7 +12,7 @@ It's important that you feed multiple metrics with multiple values and multiple 
 But oh no! How will I test my cluster?
 Well.. you could install StatsD or Diamond on all of your instances and configure them to send metrics.. and then find out that your configuration is incorrect and iterate over it 11 times.. or...
 
-*scratches head*... oh wait. I know! I'll use feeder's AMQP transport!
+*scratches head*... oh wait. I know! I'll use feedr's AMQP transport!
 
 Ok... so the config would look something like this:
 
@@ -109,6 +109,6 @@ The (partial) output, might look like this (if you printed it to a file):
  zone1.database.hdd_free_percentage.max 90
 
 
-Now, you would be able to, for instance, use Vagrant to load a cluster of feeder instances in AWS that would bombard your cluster with metrics.. and then, POOF! Just "vagrant destroy" the machines when you're done.
+Now, you would be able to, for instance, use Vagrant to load a cluster of feedr instances in AWS that would bombard your cluster with metrics.. and then, POOF! Just "vagrant destroy" the machines when you're done.
 
 Of course... I would say that you should periodically run these tests (even randomly) to check that your cluster can withstand surges of metrics.. but.. i'm not your production manager. You can daemonize the process and omit  the -m flag so that messages are sent constantly.

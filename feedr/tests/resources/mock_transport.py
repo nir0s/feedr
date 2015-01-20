@@ -13,7 +13,7 @@ class MockTransport():
     def configure(self):
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
-        logger = logging.getLogger('feeder')
+        logger = logging.getLogger('feedr')
         handler = logging.handlers.RotatingFileHandler(
             self.file_path, maxBytes=self.max_bytes,
             backupCount=self.backups_count)

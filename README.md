@@ -1,32 +1,32 @@
-feeder
+feedr
 =======
 
-[![Build Status](https://travis-ci.org/nir0s/feeder.svg?branch=master)](https://travis-ci.org/nir0s/feeder)
+[![Build Status](https://travis-ci.org/nir0s/feedr.svg?branch=master)](https://travis-ci.org/nir0s/feedr)
 
-[![Gitter chat](https://badges.gitter.im/nir0s/feeder.png)](https://gitter.im/nir0s/feeder)
+[![Gitter chat](https://badges.gitter.im/nir0s/feedr.png)](https://gitter.im/nir0s/feedr)
 
-[![PyPI](http://img.shields.io/pypi/dm/feeder.svg)](http://img.shields.io/pypi/dm/feeder.svg)
+[![PyPI](http://img.shields.io/pypi/dm/feedr.svg)](http://img.shields.io/pypi/dm/feedr.svg)
 
-[![PypI](http://img.shields.io/pypi/v/feeder.svg)](http://img.shields.io/pypi/v/feeder.svg)
+[![PypI](http://img.shields.io/pypi/v/feedr.svg)](http://img.shields.io/pypi/v/feedr.svg)
 
-feeder generates events/logs using a specified formatter and sends them using the specified transport.
+feedr generates events/logs using a specified formatter and sends them using the specified transport.
 It can also generate fake data using fake-factory.
 
 ### Quick Start
-[Quick Start](http://feeder.readthedocs.org/en/latest/quick_start.html)
+[Quick Start](http://feedr.readthedocs.org/en/latest/quick_start.html)
 
 ### Documentation
-[feeder Documentation](http://feeder.readthedocs.org)
+[feedr Documentation](http://feedr.readthedocs.org)
 
 ### Installation
 ```shell
- pip install feeder
+ pip install feedr
  # or, for dev:
- pip install https://github.com/nir0s/feeder/archive/master.tar.gz
+ pip install https://github.com/nir0s/feedr/archive/master.tar.gz
 ```
 
 ### Usage Examples
-see [feeder config](http://feeder.readthedocs.org/en/latest/configuration.html) and [advanced config](http://feeder.readthedocs.org/en/latest/advanced_configuration.html)
+see [feedr config](http://feedr.readthedocs.org/en/latest/configuration.html) and [advanced config](http://feedr.readthedocs.org/en/latest/advanced_configuration.html)
 to configure your transports and formatters.
 ```shell
  # this will assume config.py in the cwd and assume default for each option
@@ -47,13 +47,13 @@ to configure your transports and formatters.
 ```
 
 ### Additional Information
-- [Use Case](http://feeder.readthedocs.org/en/latest/case_study.html)
-- [Configuration](http://feeder.readthedocs.org/en/latest/configuration.html)
-- [formatters](http://feeder.readthedocs.org/en/latest/formatters.html)
-- [transports](http://feeder.readthedocs.org/en/latest/transports.html)
-- [API](http://feeder.readthedocs.org/en/latest/api.html)
-- [InHouseFaker](http://feeder.readthedocs.org/en/latest/in_house_faker.html)
+- [Use Case](http://feedr.readthedocs.org/en/latest/case_study.html)
+- [Configuration](http://feedr.readthedocs.org/en/latest/configuration.html)
+- [formatters](http://feedr.readthedocs.org/en/latest/formatters.html)
+- [transports](http://feedr.readthedocs.org/en/latest/transports.html)
+- [API](http://feedr.readthedocs.org/en/latest/api.html)
+- [InHouseFaker](http://feedr.readthedocs.org/en/latest/in_house_faker.html)
 
 ### Vagrant
-A vagrantfile is provided: It will load a machine and install feeder on it in a virtualenv so that you can experiment with it.
-For a machine containing feeder, ELK and RabbitMQ see the [elk-workshop repo](https://github.com/nir0s/elk-workshop).
+A vagrantfile is provided: It will load a machine and install feedr on it in a virtualenv so that you can experiment with it.
+For a machine containing feedr, ELK and RabbitMQ see the [elk-workshop repo](https://github.com/nir0s/elk-workshop).

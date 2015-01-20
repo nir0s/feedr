@@ -7,7 +7,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-.. automodule:: feeder.feeder
+.. automodule:: feedr.feedr
    :members:
    :undoc-members:
    :show-inheritance:

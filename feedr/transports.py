@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # TODO: (FEAT) add graphite - https://github.com/daniellawrence/graphitesend
+# TODO: https://github.com/globocom/tornado-es
 
 import pika
 import logging
@@ -86,7 +87,7 @@ class FileTransport(BaseTransport):
     def configure(self):
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
-        logger = logging.getLogger('feeder')
+        logger = logging.getLogger('feedr')
         handler = logging.handlers.RotatingFileHandler(
             self.file_path, maxBytes=self.max_bytes,
             backupCount=self.backups_count)
@@ -181,7 +182,7 @@ class UDPTransport(BaseTransport):
             raise RuntimeError('configuration not complete: {0}'.format(ex))
 
     def configure(self):
-        logger = logging.getLogger('feeder')
+        logger = logging.getLogger('feedr')
         handler = logging.handlers.DatagramHandler(self.host, self.port)
         logger.addHandler(handler)
         logger.setLevel(logging.DEBUG)
@@ -201,7 +202,7 @@ class StreamTransport(BaseTransport):
         pass
 
     def configure(self):
-        logger = logging.getLogger('feeder')
+        logger = logging.getLogger('feedr')
         handler = logging.StreamHandler()
         logger.addHandler(handler)
         logger.setLevel(logging.DEBUG)

@@ -23,8 +23,8 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # General information about the project.
-project = 'feeder'
-package = 'feeder'
+project = 'feedr'
+package = 'feedr'
 author = 'nir0s'
 copyright = '2014, nir0s'
 

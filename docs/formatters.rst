@@ -27,7 +27,7 @@ Contents:
    formatter_apache_access_ex
    formatter_apache_error
 
-.. automodule:: feeder.formatters
+.. automodule:: feedr.formatters
    :members:
    :undoc-members:
    :show-inheritance:

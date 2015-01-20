@@ -43,7 +43,7 @@ def fake_data(data_type):
         elif hasattr(fake, data_type):
             return str(getattr(fake, data_type)())
         # except AttributeError:
-        print('cannot randomize data for {0}. run "feeder list fake" '
+        print('cannot randomize data for {0}. run "feedr list fake" '
               'to print a list of possible types.'.format(data_type))
         raise RuntimeError('cannot randomize data type {0}'.format(
             data_type))

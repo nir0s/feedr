@@ -21,7 +21,7 @@ LOGGER = {
             "class": "logging.handlers.RotatingFileHandler",
             "formatter": "file",
             "level": "DEBUG",
-            "filename": os.path.expanduser("~/.feeder/feeder.log"),
+            "filename": os.path.expanduser("~/.feedr/feedr.log"),
             "maxBytes": "5000000",
             "backupCount": "20"
         },

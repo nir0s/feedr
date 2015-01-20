@@ -48,7 +48,7 @@ def _set_global_verbosity_level(is_verbose_output=False):
 
 
 def _import_config(config_file):
-    """returns a Feeder configuration object
+    """returns a Feedr configuration object
 
     :param string config_file: path to config file
     """
@@ -64,11 +64,11 @@ def _import_config(config_file):
     # TODO: (IMPRV) remove from path after importing
     except ImportError:
         lgr.warning('config file not found: {0}.'.format(config_file))
-        raise FeederError('missing config file')
+        raise FeedrError('missing config file')
     except SyntaxError:
         lgr.error('config file syntax is malformatted. please fix '
                   'any syntax errors you might have and try again.')
-        raise FeederError('bad config file')
+        raise FeedrError('bad config file')
 
 
 def get_current_time():
@@ -117,7 +117,7 @@ def send(instance, client, formatter, format_config, messages, gap, batch):
     else:
         lgr.error('could not find formatter: {0}. please make sure the '
                   'formatter you\'re calling exists.'.format(formatter))
-        raise FeederError('missing formatter')
+        raise FeedrError('missing formatter')
     # and get the current time
     start_time = get_current_time()
     lgr.debug('start time is: {0}'.format(start_time))
@@ -175,7 +175,7 @@ def config_transport(transports, transport, transport_config):
     else:
         lgr.error('could not find transport: {0}. please make sure the '
                   'transport you\'re calling exists.'.format(transport))
-        raise FeederError('missing transport: {0}'.format(transport))
+        raise FeedrError('missing transport: {0}'.format(transport))
     # get transport client
     client = transport_instance.configure()
     return transport_instance, client
@@ -200,7 +200,7 @@ def generator(config=None, transport=None,
         return float(gap), abs(int(messages)), int(batch)
     # set verbosity level for internal logging
     _set_global_verbosity_level(verbose)
-    # set params for basic Feeder configuration
+    # set params for basic Feedr configuration
     # import config file
     transport = transport if transport else DEFAULT_TRANSPORT
     formatter = formatter if formatter else DEFAULT_FORMATTER
@@ -234,7 +234,7 @@ def generator(config=None, transport=None,
 
     # well.. you can't have that right? that would be stupid.
     if msgs > 0 and batch > msgs:
-        raise FeederError('batch number larger than total amount of messages')
+        raise FeedrError('batch number larger than total amount of messages')
     else:
         lgr.debug('batch: {0}'.format(batch))
     # define transport class instance and shipping client
@@ -296,5 +296,5 @@ def list_formatters():
             print('*** {0}'.format(formatter.replace('Formatter', '')))
 
 
-class FeederError(Exception):
+class FeedrError(Exception):
     pass
