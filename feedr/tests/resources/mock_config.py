@@ -78,7 +78,7 @@ GENERATOR = {
     'transports': {
         'MyAmqpTransport': {
             'type': 'AMQP',
-            'host': 'localhost',
+            'host': '10.10.10.10',
             'queue': 'myqueue',
             'exchange': '',
             'routing_key': 'myroutingkey',
