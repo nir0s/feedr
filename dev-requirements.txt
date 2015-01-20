@@ -1,0 +1,6 @@
+nose
+nose-cov
+testfixtures
+fake-factory
+prettytable
+testtools

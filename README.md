@@ -9,6 +9,8 @@ feedr
 
 [![PypI](http://img.shields.io/pypi/v/feedr.svg)](http://img.shields.io/pypi/v/feedr.svg)
 
+[![ReadTheDocs](https://readthedocs.org/projects/feedr/?badge=latest)](https://readthedocs.org/projects/feedr/?badge=latest)
+
 feedr generates events/logs using a specified formatter and sends them using the specified transport.
 It can also generate fake data using fake-factory.
 
