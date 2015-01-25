@@ -16,6 +16,7 @@ import pymongo
 from elasticsearch import Elasticsearch
 from influxdb import client as influxdb
 import urllib2
+import kafka
 
 # import pretty table for statistical data visualization
 from prettytable import PrettyTable
@@ -375,6 +376,47 @@ class InfluxDBTransport(BaseTransport):
     def send(self, client, data):
         for piece in data:
             client.write_points([piece])
+
+    def close(self):
+        pass
+
+    def get_data(self):
+        pass
+
+
+class KafkaTransport(BaseTransport):
+    """a Kafka transport implementation"""
+    def __init__(self, config):
+        try:
+            self.host = config['host']
+            self.port = config.get('port', 9092)
+            self.topic = config.get('topic', 'my-topic')
+            self.producer['async'] = config.get('async')
+            self.producer['batch_send'] = config.get('batch_send')
+            if self.producer['batch_send']:
+                self.producer['every_m'] = config.get('batch_time', 60)
+                self.producer['every_s'] = config.get('batch_msgs', 20)
+            self.wait_for_ack = config.get('wait_for_ack', False)
+            if self.wait_for_ack:
+                self.producer['req_acks'] = config.get(
+                    'request_ack', kafka.SimpleProducer.ACK_AFTER_LOCAL_WRITE)
+                self.producer['ack_timeout'] = config.get('ack_timeout', 2000)
+        except KeyError as ex:
+            raise RuntimeError('configuration not complete: {0}'.format(
+                ex.message))
+
+    def configure(self):
+        self.client = kafka.KafkaClient("{0}:{1}")
+        self.producer = kafka.SimpleProducer(self.client, **self.producer)
+        return self.producer
+
+    def send(self, client, data):
+        for piece in data:
+            if self.unicode:
+                client.send_messages(self.topic, piece)
+            else:
+                client.send_messages(
+                    self.topic, u'{0}'.encode('utf-8').format(piece))
 
     def close(self):
         pass

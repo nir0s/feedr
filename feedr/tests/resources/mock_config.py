@@ -117,6 +117,18 @@ GENERATOR = {
             'user': 'root',
             'password': 'root',
             'database': 'metrics'
+        },
+        'MyKafkaTransport': {
+            'type': 'Kafka',
+            'host': '10.2.2.8',
+            'port': '9092',
+            'topic': 'my-cool-topic',
+            'wait_for_ack': False,
+            'ack_timeout': 2000,
+            'async': True,
+            'batch_send': True,
+            'batch_time': 60,
+            'batch_msgs': 20,
         }
     },
 }
