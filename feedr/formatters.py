@@ -8,6 +8,7 @@ from faker import Factory
 from format_mappings import InHouseFaker
 import json
 import uuid
+import docker
 
 
 DEFAULT_CUSTOM_FORMAT = [
@@ -309,3 +310,20 @@ class ApacheErrorFormatter(CustomFormatter):
             'catch_phrase': self.f(config, 'catch_phrase'),
             'syslog_error_levels_lower': self.f(config, 'syslog_error_levels_lower'),  # NOQA
         }
+
+
+class DockerStatsFormatter():
+    """returns stats from a docker container"""
+    def __init__(self, config):
+        try:
+            self.container = config['container']
+        except KeyError as ex:
+            raise RuntimeError('configuration incomplete: {0}'.format(ex))
+        self.client_config = config.get('client_config')
+
+    def generate_data(self):
+        client = docker.Client(**self.client_config) \
+            if self.client_config else docker.Client()
+        stream = client.stats(self.container)
+        for stat in stream:
+            return stat

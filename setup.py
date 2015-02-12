@@ -1,6 +1,6 @@
 from setuptools import setup
 # from setuptools import find_packages
-from setuptools.command.test import test as TestCommand
+from setuptools.command.test import test as testcommand
 import sys
 import re
 import os
@@ -24,14 +24,14 @@ def find_version(*file_paths):
     raise RuntimeError("Unable to find version string.")
 
 
-class Tox(TestCommand):
+class Tox(testcommand):
     def finalize_options(self):
-        TestCommand.finalize_options(self)
+        testcommand.finalize_options(self)
         self.test_args = []
         self.test_suite = True
 
     def run_tests(self):
-        #import here, cause outside the eggs aren't loaded
+        # import here, cause outside the eggs aren't loaded
         import tox
         errcode = tox.cmdline(self.test_args)
         sys.exit(errcode)
@@ -63,6 +63,7 @@ setup(
         "LogentriesLogger==0.2.1",
         "pymongo==2.7.1",
         "influxdb==0.1.12",
+        "docker-py==0.7.3",
     ],
     tests_require=['nose', 'tox'],
     cmdclass={'test': Tox},

@@ -74,6 +74,10 @@ GENERATOR = {
                 'NON_EXISTENT_DATA_FOR_RAND': '$RAND'
             }
         },
+        'MyDockerStatsFormatter': {
+            'type': 'DockerStats',
+            'container': 'elasticsearch'
+        }
     },
     'transports': {
         'MyAmqpTransport': {
