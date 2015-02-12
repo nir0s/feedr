@@ -26,6 +26,7 @@ Contents:
    formatter_apache_access
    formatter_apache_access_ex
    formatter_apache_error
+   formatter_docker_stats
 
 .. automodule:: feedr.formatters
    :members:
