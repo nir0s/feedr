@@ -135,6 +135,7 @@ class AMQPTransport(BaseTransport):
         self.auto_delete = config.get('auto_delete', True)
         self.durable = config.get('durable', True)
         self.exclusive = config.get('exclusive', False)
+        self.internal = config.get('internal', False)
 
     def configure(self):
         if not self.host:
@@ -153,7 +154,8 @@ class AMQPTransport(BaseTransport):
         client = self.connection.channel()
         if len(self.exchange) > 0:
             client.exchange_declare(
-                exchange=self.exchange, type=self.exchange_type)
+                exchange=self.exchange, exchange_type=self.exchange_type,
+                internal=self.internal)
         client.queue_declare(queue=self.queue, **settings)
         return client
 
